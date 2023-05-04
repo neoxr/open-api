@@ -1,0 +1,28 @@
+{
+  "name": "webapi",
+  "version": "1.0.0",
+  "description": "Base Script for API Website",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "website",
+    "api",
+    "fastify"
+  ],
+  "author": "Wildan Izzudin",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/autoload": "^5.7.1",
+    "axios": "^1.4.0",
+    "cheerio": "^1.0.0-rc.12",
+    "fastify": "^4.17.0",
+    "fastify-log": "^1.2.2",
+    "fastify-prettier": "^2.0.0",
+    "fastify-routes": "^3.2.0",
+    "form-data": "^4.0.0",
+    "path": "^0.12.7",
+    "pino-pretty": "^10.0.0"
+  }
+}
