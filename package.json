@@ -1,28 +1,18 @@
 {
-  "name": "webapi",
+  "name": "webplugin",
   "version": "1.0.0",
-  "description": "Base Script for API Website",
   "main": "index.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "keywords": [
-    "website",
-    "api",
-    "fastify"
-  ],
-  "author": "Wildan Izzudin",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "@fastify/autoload": "^5.7.1",
-    "axios": "^1.4.0",
+    "@neoxr/api": "^1.5.3",
+    "axios": "^1.6.8",
+    "body-parser": "^1.20.2",
+    "cfonts": "^3.1.1",
+    "chalk": "4.1.0",
     "cheerio": "^1.0.0-rc.12",
-    "fastify": "^4.17.0",
-    "fastify-log": "^1.2.2",
-    "fastify-prettier": "^2.0.0",
-    "fastify-routes": "^3.2.0",
-    "form-data": "^4.0.0",
-    "path": "^0.12.7",
-    "pino-pretty": "^10.0.0"
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0"
   }
 }
