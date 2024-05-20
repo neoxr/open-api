@@ -13,6 +13,7 @@ const createRouter = async () => {
             next()
          }
          router[route.method](route.path, validator, route.execution)
+         if (router.stack.length === Object.values(routers).length) break
       }
       return router
    } catch (e) {
