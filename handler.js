@@ -1,20 +1,23 @@
-const Loader = new(require('./lib/system/loader'))
+const { Loader, Scraper } = new(require('./lib'))
 const express = require('express')
 const router = express.Router()
 
 const createRouter = async () => {
    try {
       await Loader.start()
-      const routers = Object.fromEntries(Object.entries(Loader.plugins).filter(([name, _]) => !_.routes.error))
-      for (const name in routers) {
-         const route = routers[name].routes
-         if (route.error) continue
-         const validator = route.validator ? route.validator : (req, res, next) => {
+      const routers = Object.values(Object.fromEntries(Object.entries(Loader.plugins)))
+      routers.map(v => {
+         const route = v.routes
+         route.utils = { ...Scraper }
+         const requires = (!route.requires ? (req, res, next) => {
+            const reqFn = route.method === 'get' ? 'reqGet' : 'reqPost'
+            const check = global.status[reqFn](req, route.parameter)
+            if (!check.status) return res.json(check)
             next()
-         }
-         router[route.method](route.path, validator, route.execution)
-         if (router.stack.length === Object.values(routers).length) break
-      }
+         } : route.requires)
+         router[route.method](route.path, requires, route.execution)
+         if (router.stack.length === routers.length) return
+      })
       return router
    } catch (e) {
       console.log(e)
