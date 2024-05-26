@@ -1,16 +1,15 @@
 exports.routes = {
-   name: 'URL Shortener',
+   name: 'URL Expander',
    category: 'tools',
-   path: '/api/shorten',
+   path: '/api/url-expander',
    parameter: ['url'],
    example: {
-      url: 'https://github.com/neoxr/webapi'
+      url: 'https://encr.pw/M9pQK'
    },
    method: 'get',
    execution: async (req, res, next) => {
       const _ = exports.routes.utils
-      const json = await _.Scraper.shorten(req.query.url)
-      console.log(_.Scraper)
+      const json = await _.Scraper.expander(req.query.url)
       res.json(json)
    },
    error: false

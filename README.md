@@ -1,6 +1,17 @@
-## WEB 0.1
+## OPEN-API
 
-> Simple web with router plugin system
+> Lightweight rest api web base script with various superior features :v
+
+### Features
+
+- [x] Plugin as Router
+- [x] Auto Load Scraper
+- [x] Auto List Feature
+- [x] Pagination
+- [x] High Optimation
+- [x] Using Jomok Engine
+- [x] Easy to Customize
+- [x] etc.
 
 ### Installation & Run
 
@@ -17,14 +28,6 @@ $ npm i -g pm2
 $ pm2 start index.js && pm2 save && pm2 logs
 ```
 
-### Example API
+### Conclusion
 
-> /api/shorten
-
-### Credits
-
-> I really appreciate other people's work, so below are the sources for the components of this script
-
-- Home Page : [Carrd](https://carrd.co/build?ref=auto)
-- Error Page : [@pgalor on Codepen](https://codepen.io/pgalor/pen/OeRWJQ)
-- Backend original by Me :)
+> Open-API is part of [Neoxr API](https://api.neoxr.my.id)

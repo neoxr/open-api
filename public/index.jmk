@@ -1,0 +1,52 @@
+{{> main/header }}
+<div class="container">
+   <div class="grid">
+      <div class="col-12_sm-12">
+         <div class="boxed">
+            <h3 class="head-title"><span onclick="javascript:window.location = 'https://github.com/neoxr/open-api'">{{data.title}}</span><div class="checkbox-wrapper-51">
+               <input id="cbx-51" type="checkbox">
+               <label class="toggle" for="cbx-51">
+                  <span>
+                     <svg viewBox="0 0 10 10" height="10px" width="10px">
+                        <path d="M5,1 L5,1 C2.790861,1 1,2.790861 1,5 L1,5 C1,7.209139 2.790861,9 5,9 L5,9 C7.209139,9 9,7.209139 9,5 L9,5 C9,2.790861 7.209139,1 5,1 L5,9 L5,1 Z"></path>
+                     </svg>
+                  </span>
+               </label>
+            </div>
+            </h3>
+            {{#if data.collection}}
+            <table class="table-4" cellspacing="0">
+               <tr>
+                  <th><div class="circle color-primary"></div></th>
+                  <th>Name</th>
+                  <th>Method</th>
+                  <th>Action</th>
+               </tr>
+               {{#each data.collection}}
+               <tr>
+                  <td>{{#if error}}<div class="circle color-off"></div>{{else}}<div class="circle pulse color-on"></div>{{/if}}</td>
+                  <td class="ellipsis">{{name}}</td>
+                  <td align="center" class="block">{{method}}</td>
+                  <td>{{#if error}}{{else}}<a href="{{path}}" target="_blank"><button>View</button></a>{{/if}}</td>
+               </tr>
+               {{/each}}
+            </table>
+
+            <div class="grid">
+               <div class="col-6">
+                  {{#if pages.previous}} <a href="/?page={{pages.previous.page}}"><button class="btn">Prev</button></a>{{/if}}
+               </div>
+               <div class="col-6">
+                  {{#if pages.next}} <a href="/?page={{pages.next.page}}"><button class="btn">Next</button></a>{{/if}}
+               </div>
+            </div>
+            {{else}}
+            <div class="alert alert-info">
+               There is no API installed yet
+            </div>
+            {{/if}}
+         </div>
+      </div>
+   </div>
+</div>
+{{> main/footer }}

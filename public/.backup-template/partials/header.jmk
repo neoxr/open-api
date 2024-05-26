@@ -2,15 +2,15 @@
 <html lang="en">
 
 <head>
-   <title><%- data.title %></title>
+   <title>{{ data.title }}</title>
    <meta charset="utf-8" />
    <meta name="viewport" content="width=device-width,initial-scale=1" />
    <meta name="color-scheme" content="light only" />
-   <meta name="description" content="<%- data.description %>" />
-   <meta property="og:site_name" content="<%- data.title %>" />
-   <meta property="og:title" content="<%- data.title %>" />
+   <meta name="description" content="{{ data.description }}" />
+   <meta property="og:site_name" content="{{ data.title }}" />
+   <meta property="og:title" content="{{ data.title }}" />
    <meta property="og:type" content="website" />
-   <meta property="og:description" content="<%- data.description %>" />
+   <meta property="og:description" content="{{ data.description }}" />
    <meta property="og:image" content="/assets/images/avatar.jpeg" />
    <meta property="og:image:type" content="image/jpeg" />
    <meta property="og:image:width" content="1280" />

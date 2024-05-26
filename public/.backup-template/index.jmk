@@ -1,4 +1,4 @@
-<%- include('partials/header') %>
+{{> header }}
 
 <body class="is-loading">
    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" display="none" width="0" height="0">
@@ -46,7 +46,7 @@
                </ul>
             </div>
             <hr id="divider01" class="style1 full">
-            <%- include('partials/section') %>
+            {{> section }}
             <div id="credits" class="icc-credits">
                <span><a href="https://carrd.co/build?ref=auto">Made with Carrd</a></span>
             </div>

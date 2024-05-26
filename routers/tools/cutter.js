@@ -1,7 +1,7 @@
 exports.routes = {
-   name: 'URL Shortener',
+   name: 'URL Cutter',
    category: 'tools',
-   path: '/api/shorten',
+   path: '/api/url-cutter',
    parameter: ['url'],
    example: {
       url: 'https://github.com/neoxr/webapi'
@@ -9,8 +9,7 @@ exports.routes = {
    method: 'get',
    execution: async (req, res, next) => {
       const _ = exports.routes.utils
-      const json = await _.Scraper.shorten(req.query.url)
-      console.log(_.Scraper)
+      const json = await _.Scraper['url-cutter'].cut(req.query.url)
       res.json(json)
    },
    error: false
