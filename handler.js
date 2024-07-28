@@ -1,31 +1,38 @@
-const { Loader, Function: Func, Scraper } = new(require('./lib'))
+const { Loader, Function: Func } = new(require('./lib'))
 const { collection } = require('./lib/system/config')
-const NeoxrApi = (new(require('@neoxr/api'))(null, process.env.API_KEY))
+const path = require('path')
 const express = require('express')
 const router = express.Router()
 
 const createRouter = async () => {
    try {
-      await Loader.router('./routers')
-      await Loader.scraper('./lib/scraper')
+      await Loader.router(path.join(__dirname, 'routers'))
       const routers = Object.values(Object.fromEntries(Object.entries(Loader.plugins)))
       routers.map(v => {
          const route = v.routes
          if (route.name) collection.push({
+            category: Func.ucword(route.category),
             base_code: Buffer.from(route.category.toLowerCase()).toString('base64'),
             name: route.name,
-            path: route.example ? `${route.path}?${new URLSearchParams(route.example).toString('utf-8')}${route.premium ? '&apikey=' + ('Y') : ''}` : '',
+            path: route.example ? `${route.path}?${new URLSearchParams(route.example).toString('utf-8')}` : route.path,
             method: route.method.toUpperCase(),
-            error: route.error
-         })
-   
-         route.utils = Object.freeze({
-            Scraper: {
-               ...Scraper,
-               ...Loader.scrapers,
+            raw: {
+               path: route.path,
+               example: route.example || null
             },
-            Api: NeoxrApi,
-            Func
+            error: route.error,
+            premium: route.premium
+         })
+
+         // error
+         const error = (route.error ? (req, res, next) => {
+            res.json({
+               creator: global.creator,
+               status: false,
+               msg: `Sorry, this feature is currently error and will be fixed soon`
+            })
+         } : (req, res, next) => {
+            next()
          })
          
          // vaidator & requires
@@ -33,8 +40,9 @@ const createRouter = async () => {
             const reqFn = route.method === 'get' ? 'reqGet' : 'reqPost'
             const check = global.status[reqFn](req, route.parameter)
             if (!check.status) return res.json(check)
-            if ('url' in req.query) {
-               const isUrl = global.status.url(req.query.url)
+            const reqType = route.method === 'get' ? 'query': 'body'
+            if ('url' in req[reqType]) {
+               const isUrl = global.status.url(req[reqType].url)
                if (!isUrl.status) return res.json(isUrl)
                next()
             } else next()
@@ -45,11 +53,9 @@ const createRouter = async () => {
             next()
          })
          
-         // compile router
-         router[route.method](route.path, requires, validator, route.execution)
+         router[route.method](route.path, error, requires, validator, route.execution)
          if (router.stack.length === routers.length) return
       })
-      
       return router
    } catch (e) {
       console.log(e)

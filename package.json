@@ -4,16 +4,16 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@neoxr/api": "^1.5.3",
     "axios": "^1.6.8",
     "body-parser": "^1.20.2",
-    "cfonts": "^3.1.1",
+    "cfonts": "3.1.1",
     "chalk": "4.1.0",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
-    "express-handlebars": "5.3.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
+    "serve-favicon": "^2.5.0"
   }
 }

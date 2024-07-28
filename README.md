@@ -1,16 +1,14 @@
 ## OPEN-API
 
-> Lightweight rest api web base script with various superior features :v
+> JavaScript base website script using a plugin as a router that is lightweight and easy to customize.
 
 ### Features
 
 - [x] Plugin as Router
-- [x] Auto Load Scraper
 - [x] Auto List Feature
-- [x] Pagination
 - [x] High Optimation
-- [x] Using Jomok Engine
 - [x] Easy to Customize
+- [x] Suitable for Rest API
 - [x] etc.
 
 ### Installation & Run

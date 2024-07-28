@@ -7,15 +7,8 @@ const PORT = process.env.PORT || 8080
 const runServer = async () => {
    const app = express()
    app.set('json spaces', 2)
-      .engine(Buffer.from('6a6d6b', 'hex').toString(), require(Buffer.from('657870726573732d68616e646c6562617273', 'hex').toString())({
-         extname: Buffer.from('6a6d6b', 'hex').toString(),
-         defaultLayout: '',
-         partialsDir: [
-            path.join(__dirname, 'public/partials/') // Specify the directory for partials
-         ]
-      }))
-      .set('view engine', Buffer.from('6a6d6b', 'hex').toString())
-      .set('views', path.join(__dirname, 'public'))
+      .set('view engine', 'ejs')
+      .engine('ejs', require('ejs').__express)
       .use(express.json())
       .use(require('morgan')('dev'))
       .use(bodyParser.json({
@@ -27,13 +20,17 @@ const runServer = async () => {
          parameterLimit: 50000
       }))
       .use(express.static(path.join(__dirname, 'public')))
-   app.use('/', await require('./handler'))
-   app.get('*', (req, res) => res.render(process.cwd() + '/public/404', {
-      data: {
-         title: process.env.SITE_NAME
-      }
-   }))
+      .use('/', await require('./handler'))
+      .get('*', (req, res) => res.status(404).json({
+         creator: global.creator,
+         status: false,
+         msg: 'the page you are looking for was not found'
+      }))
    app.disable('x-powered-by')
+   app.use((req, res, next) => {
+      res.setHeader('X-Powered-By', 'NXR-SERVER')
+      next()
+   })
    app.listen(PORT, () => {
       const CFonts = require('cfonts')
       CFonts.say('Open-API', {
