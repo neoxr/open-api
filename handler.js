@@ -8,7 +8,7 @@ const createRouter = async () => {
    try {
       await Loader.router(path.join(__dirname, 'routers'))
       const routers = Object.values(Object.fromEntries(Object.entries(Loader.plugins)))
-      routers.map(v => {
+      routers.some(v => {
          const route = v.routes
          if (route.name) collection.push({
             category: Func.ucword(route.category),
@@ -54,7 +54,7 @@ const createRouter = async () => {
          })
          
          router[route.method](route.path, error, requires, validator, route.execution)
-         if (router.stack.length === routers.length) return
+         if (router.stack.length === routers.length || (router.stack.length - 1) === routers.length) return
       })
       return router
    } catch (e) {

@@ -3,14 +3,18 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const chalk = require('chalk')
+const ip = require('request-ip')
+const morgan = require('morgan')
 const PORT = process.env.PORT || 8080
 const runServer = async () => {
    const app = express()
-   app.set('json spaces', 2)
+   morgan.token('clientIp', (req) => req.clientIp)
+   app.set('json spaces', 3)
       .set('view engine', 'ejs')
       .engine('ejs', require('ejs').__express)
       .use(express.json())
-      .use(require('morgan')('dev'))
+      .use(ip.mw())
+      .use(morgan(':clientIp :method :url :status :res[content-length] - :response-time ms'))
       .use(bodyParser.json({
          limit: '50mb'
       }))
@@ -42,7 +46,7 @@ const runServer = async () => {
          font: 'console',
          align: 'center'
       })
-      console.log(chalk.yellowBright.bold('Server listening on port --->', PORT))
+      console.log(chalk.yellowBright.bold('Server listening on PORT --->', PORT))
    })
 }
 
