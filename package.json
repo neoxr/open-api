@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@neoxr/api": "^1.5.3",
-    "axios": "^1.6.8",
+    "axios": "^1.7.4",
     "body-parser": "^1.20.2",
     "cfonts": "3.1.1",
     "chalk": "4.1.0",
