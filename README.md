@@ -31,7 +31,7 @@ $ pm2 start index.js && pm2 save && pm2 logs
 
 ### Example
 
-> /song?q={query}
+> /api/tempo?q={query}
 
 ### Conclusion
 
