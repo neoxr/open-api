@@ -1,4 +1,4 @@
-exports.routes = {
+export const routes = {
    category: 'main',
    path: '/',
    method: 'get',

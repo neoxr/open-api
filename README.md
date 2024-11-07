@@ -1,6 +1,6 @@
 ## OPEN-API
 
-> JavaScript base website script using a plugin as a router that is lightweight and easy to customize.
+> JavaScript (ESM) base website script using a plugin as a router that is lightweight and easy to customize.
 
 <p align="center"><img src="https://qu.ax/zhNAn.png" alt="Open-API" width="100%"></p>
 

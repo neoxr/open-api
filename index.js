@@ -1,47 +1,59 @@
-require('./lib/system/config.js'), require('dotenv').config()
-const express = require('express')
-const path = require('path')
-const bodyParser = require('body-parser')
-const chalk = require('chalk')
-const ip = require('request-ip')
-const morgan = require('morgan')
-const PORT = process.env.PORT || 8080
+import 'dotenv/config'
+import './lib/system/config.js'
+import express from 'express'
+import path from 'path'
+import bodyParser from 'body-parser'
+import chalk from 'chalk'
+import requestIp from 'request-ip'
+import morgan from 'morgan'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+import CFonts from 'cfonts'
+import ejs from 'ejs'
+const PORT = process.env.PORT || 3000
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
 const runServer = async () => {
    const app = express()
+
    morgan.token('clientIp', (req) => req.clientIp)
+
    app.set('json spaces', 3)
       .set('view engine', 'ejs')
-      .engine('ejs', require('ejs').__express)
+      .engine('ejs', ejs.__express)
       .use(express.json())
-      .use(ip.mw())
+      .use(requestIp.mw())
       .use(morgan(':clientIp :method :url :status :res[content-length] - :response-time ms'))
-      .use(bodyParser.json({
-         limit: '50mb'
-      }))
-      .use(bodyParser.urlencoded({
-         limit: '50mb',
-         extended: true,
-         parameterLimit: 50000
-      }))
-      .use(express.static(path.join(__dirname, 'public')))
-      .use('/', await require('./handler'))
-      .get('*', (req, res) => res.status(404).json({
-         creator: global.creator,
-         status: false,
-         msg: 'the page you are looking for was not found'
-      }))
+      .use(bodyParser.json({ limit: '50mb' }))
+      .use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }))
+      .use(express.static(path.join(__dirname, 'public')));
+
+   // Mengimpor handler secara dinamis
+   const handler = await import('./handler.js')
+   app.use('/', await handler.default)
+
+   app.get('*', (req, res) => res.status(404).json({
+      creator: global.creator,
+      status: false,
+      msg: 'the page you are looking for was not found'
+   }))
+
    app.disable('x-powered-by')
    app.use((req, res, next) => {
       res.setHeader('X-Powered-By', 'NXR-SERVER')
       next()
    })
+
    app.listen(PORT, () => {
-      const CFonts = require('cfonts')
+      console.clear()
       CFonts.say('Open-API', {
          font: 'tiny',
          align: 'center',
          colors: ['system']
-      }), CFonts.say('Github : https://github.com/neoxr/open-api', {
+      })
+      CFonts.say('Github : https://github.com/neoxr/open-api', {
          colors: ['system'],
          font: 'console',
          align: 'center'

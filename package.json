@@ -2,6 +2,7 @@
   "name": "open-api",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "engines": {
     "node": ">= 18.x",
     "npm": ">= 9.x"
@@ -16,7 +17,6 @@
     "url": "https://api.neoxr.eu/"
   },
   "dependencies": {
-    "@neoxr/api": "^1.5.3",
     "axios": "^1.6.8",
     "body-parser": "^1.20.2",
     "cfonts": "3.1.1",
