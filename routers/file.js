@@ -24,7 +24,6 @@ export const routes = {
             const filename = 'neoxr-' + Func.makeId(6) + '.' + (extension(response.headers['content-type']) || 'bin')
             res.setHeader("Content-Disposition", "attachment; filename=" + filename)
          })
-         // Stream langsung ke response
          stream.pipe(res).on('error', e => {
             sendErrorFile(res, e.message)
          })
