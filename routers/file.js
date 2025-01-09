@@ -16,14 +16,14 @@ export const routes = {
          stream.on('error', e => {
             res.status(500).send(e.message)
          })
-         stream.on("response", (response) => {
-            res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
-            res.setHeader("Pragma", "no-cache")
-            res.setHeader("Expires", "0")
-            res.setHeader("Content-Type", response.headers["content-type"] || "application/octet-stream")
-            res.setHeader("Content-Length", response.headers["content-length"] || 0)
+         stream.on('response', (response) => {
+            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+            res.setHeader('Pragma', 'no-cache')
+            res.setHeader('Expires', '0')
+            res.setHeader('Content-Type', response.headers['content-type'] || 'application/octet-stream')
+            res.setHeader('Content-Length', response.headers['content-length'] || 0)
             const filename = 'neoxr-' + Func.makeId(6) + '.' + (extension(response.headers['content-type']) || 'bin')
-            res.setHeader("Content-Disposition", "attachment; filename=" + filename)
+            res.setHeader('Content-Disposition', 'attachment; filename=' + filename)
          })
          stream.pipe(res).on('error', e => {
             res.status(500).send(e.message)
