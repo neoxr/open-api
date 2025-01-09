@@ -7,7 +7,6 @@
 ### Features
 
 - [x] Plugin as Router
-- [x] Auto List Feature
 - [x] High Optimation
 - [x] Easy to Customize
 - [x] Show User IP
@@ -28,10 +27,6 @@ $ yarn
 $ npm i -g pm2
 $ pm2 start index.js && pm2 save && pm2 logs
 ```
-
-### Example
-
-> /api/tempo?q={query}
 
 ### Conclusion
 
