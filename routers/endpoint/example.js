@@ -1,4 +1,4 @@
-import { Loader } from '../lib/index.js'
+import { Loader } from '../../lib/index.js'
 const Scraper = Loader.scrapers
 
 export const routes = {

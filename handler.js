@@ -1,5 +1,6 @@
 import { Loader, Func } from './lib/index.js'
 import { allowedIPs, collection } from './lib/system/config.js'
+import jwt from 'jsonwebtoken'
 import requestIp from 'request-ip'
 import path, { dirname } from 'path'
 import express from 'express'
@@ -54,6 +55,27 @@ const createRouter = async () => {
          } : (req, res, next) => {
             next()
          }
+
+         // Middleware to JWT authentication
+         const authorize = (route.authorize ? (req, res, next) => {
+            const authHeader = req.headers['authorization']
+            const authToken = authHeader && authHeader.split(' ')[1].trim()
+            if (!authToken || authToken != req.session.token) return res.status(401).json({
+               creator: global.creator,
+               status: false,
+               msg: 'Unauthorized'
+            })
+            jwt.verify(authToken, process.env.JWT_SECRET, (err, user) => {
+               if (err) return res.status(403).json({
+                  creator: global.creator,
+                  status: false,
+                  msg: 'Forbidden access'
+               })
+               next()
+            })
+         } : (req, res, next) => {
+            next()
+         })
 
          // Middleware to check request limit per IP
          const rpm = route.rpm ? (req, res, next) => {
@@ -111,7 +133,7 @@ const createRouter = async () => {
          }
 
          // Register the route on the router
-         router[route.method](route.path, restrict, rpm, error, requires, validator, route.execution)
+         router[route.method](route.path, restrict, authorize, rpm, error, requires, validator, route.execution)
          if (router.stack.length === routers.length || (router.stack.length - 1) === routers.length) return
       })
 

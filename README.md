@@ -35,6 +35,7 @@ export const routes = {
       res.json(json)
    },
    error: false,
+   authorize: false,
    rpm: false,
    restrict: false
 }
