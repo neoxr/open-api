@@ -1,4 +1,4 @@
-import { Loader } from './lib/index.js'
+import { Loader, Func } from './lib/index.js'
 import { allowedIPs, collection } from './lib/system/config.js'
 import requestIp from 'request-ip'
 import path, { dirname } from 'path'
