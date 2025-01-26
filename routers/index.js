@@ -6,7 +6,7 @@ export const routes = {
       res.json({
          creator: global.creator,
          status: true,
-         msg: 'Hello World ^_^'
+         msg: 'Hello World ^_^ 1'
       })
    },
    error: false

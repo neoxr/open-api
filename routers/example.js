@@ -1,4 +1,5 @@
-import Tempo from '../lib/scraper/tempo.js'
+import { Loader } from '../lib/index.js'
+const Scraper = Loader.scrapers
 
 export const routes = {
    category: 'main',
@@ -7,8 +8,9 @@ export const routes = {
    method: 'get',
    execution: async (req, res, next) => {
       const { q } = req.query
-      const json = await Tempo.search(q)
+      const json = await Scraper.tempo.search(q)
       res.json(json)
    },
-   error: false
+   error: false,
+   rpm: true
 }

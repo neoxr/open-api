@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import './lib/system/config.js'
+import { Loader } from './lib/index.js'
 import express from 'express'
 import path from 'path'
 import bodyParser from 'body-parser'
@@ -16,6 +17,8 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const runServer = async () => {
+   // Dynamically load the scraper module before starting the server
+   await Loader.scraper('./lib/scraper')
    const app = express()
 
    morgan.token('clientIp', (req) => req.clientIp)
@@ -30,7 +33,7 @@ const runServer = async () => {
       .use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }))
       .use(express.static(path.join(__dirname, 'public')));
 
-   // Mengimpor handler secara dinamis
+   // Dynamically import the request handler module
    const handler = await import('./handler.js')
    app.use('/', await handler.default)
 

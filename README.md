@@ -11,8 +11,34 @@
 - [x] High Optimation
 - [x] Easy to Customize
 - [x] Show User IP
+- [x] Restrict Access (IP Whitelist)
+- [x] Request Per Minute Limit
 - [x] Suitable for Rest API
 - [x] etc.
+
+### Router
+
+> This is an example of a router
+
+```Javascript
+import { Loader } from '../lib/index.js'
+const Scraper = Loader.scrapers
+
+export const routes = {
+   category: 'main',
+   path: '/api/tempo',
+   parameter: ['q'],
+   method: 'get',
+   execution: async (req, res, next) => {
+      const { q } = req.query
+      const json = await Scraper.tempo.search(q)
+      res.json(json)
+   },
+   error: false,
+   rpm: false,
+   restrict: false
+}
+```
 
 ### Installation & Run
 
@@ -26,7 +52,7 @@ or want to use pm2
 ```
 $ yarn
 $ npm i -g pm2
-$ pm2 start index.js && pm2 save && pm2 logs
+$ pm2 start pm2.cjs && pm2 logs
 ```
 
 ### Example
