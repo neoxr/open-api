@@ -18,7 +18,7 @@ const __dirname = dirname(__filename)
 
 const runServer = async () => {
    // Dynamically load the scraper module before starting the server
-   await Loader.scraper('./lib/scraper')
+   await Loader.scraper(path.join(process.cwd(), 'lib/scraper'))
    const app = express()
 
    morgan.token('clientIp', (req) => req.clientIp)
