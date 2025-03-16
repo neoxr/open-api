@@ -2,13 +2,13 @@
 	"name": "open-api",
 	"version": "1.0.0",
 	"main": "index.js",
-	"type": "module",
 	"engines": {
 		"node": ">= 18.x",
 		"npm": ">= 9.x"
 	},
 	"scripts": {
-		"start": "node ."
+		"start": "node ./dist/index.js",
+		"build:tsc": "tsc"
 	},
 	"license": "MIT",
 	"author": {
@@ -32,5 +32,9 @@
 		"path": "^0.12.7",
 		"request-ip": "^3.3.0",
 		"serve-favicon": "^2.5.0"
+	},
+	"devDependencies": {
+		"@types/node": "^22.13.10",
+		"typescript": "^5.8.2"
 	}
 }
