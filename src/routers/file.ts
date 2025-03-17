@@ -1,7 +1,7 @@
 import { Function as Func } from '../lib'
 import { extension } from 'mime-types'
 import Jwt from 'jsonwebtoken'
-import { got } from 'got'
+const { got } = require('got')
 
 export const routes = {
    category: 'main',

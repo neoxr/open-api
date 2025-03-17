@@ -1,8 +1,7 @@
 import { Loader, Function as Func } from './lib'
 import { collection } from './lib/system/config'
-import path, { dirname } from 'path'
+import path from 'path'
 import express, { Router, Request, Response, NextFunction } from 'express'
-import { fileURLToPath } from 'url'
 
 const router: Router = express.Router()
 

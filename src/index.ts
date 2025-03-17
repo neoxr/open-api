@@ -4,12 +4,10 @@ import express, { Request, Response, NextFunction } from 'express'
 import path from 'path'
 import bodyParser from 'body-parser'
 import chalk from 'chalk'
+import ejs from 'ejs'
 import requestIp from 'request-ip'
 import morgan from 'morgan'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
 import CFonts from 'cfonts'
-import ejs from 'ejs'
 
 const PORT = process.env.PORT || 3000
 
