@@ -8,7 +8,8 @@
 	},
 	"scripts": {
 		"start": "node ./dist/index.js",
-		"build:tsc": "tsc"
+		"build:tsc": "tsc",
+      "format": "prettier --write ./lib/**/*.js" 
 	},
 	"license": "MIT",
 	"author": {
@@ -35,6 +36,7 @@
 	},
 	"devDependencies": {
 		"@types/node": "^22.13.10",
+		"prettier": "^3.5.3",
 		"typescript": "^5.8.2"
 	}
 }

@@ -1,30 +1,47 @@
-import { readdir as fsReaddir, stat as fsStat } from 'fs/promises'
-import { resolve, basename } from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
+import { promisify } from 'node:util'
+
+const readdir = promisify(fs.readdir)
+const stat = promisify(fs.stat)
+const resolve = path.resolve
+
+const scandir = async (dir: string): Promise<string[]> => {
+   let subdirs = await readdir(dir)
+   let files = await Promise.all(subdirs.map(async (subdir) => {
+      let res = resolve(dir, subdir)
+      const isDirectory = (await stat(res)).isDirectory()
+      return isDirectory ? scandir(res) : res
+   }))
+   return files.flat() as string[]
+}
 
 class Loader {
-   plugins: { [key: string]: any } = {}
+   plugins: { [key: string]: any } = []
+   scrapers: { [key: string]: any } = []
 
-   async scan(dir: string): Promise<string[]> {
-      let subdirs = await fsReaddir(dir)
-      let files = await Promise.all(subdirs.map(async (subdir) => {
-         let res = resolve(dir, subdir)
-         return (await fsStat(res)).isDirectory() ? this.scan(res) : res
-      }))
-      return files.flat()
+   constructor() {
+      this.plugins = []
+      this.scrapers = []
    }
 
-   async router(dir: string): Promise<void> {
-      const files = await this.scan(dir)
-      const pluginsArray = await Promise.all(
-         files
-            .filter(v => v.endsWith('.ts') || v.endsWith('.js'))
-            .map(async file => {
-               const plugin = await import(file)
-               return [basename(file).replace(/\.(ts|js)$/, ''), plugin.default || plugin]
-            })
-      )
-      this.plugins = Object.fromEntries(pluginsArray)
+   require = (file: string): any => {
+      try {
+         return new (require(file))
+      } catch {
+         return require(file)
+      }
+   }
+
+   start = async (dir: string): Promise<void> => {
+      const files = await scandir(dir)
+      this.plugins = Object.fromEntries(files.filter(v => v.endsWith('.js')).map(file => [path.basename(file).replace('.js', ''), require(file)]))
+   }
+
+   scraper = async (dir: string): Promise<void> => {
+      const files = await scandir(dir)
+      this.scrapers = Object.fromEntries(files.filter(v => !v.endsWith('_.js')).map(file => [path.basename(file).replace('.js', ''), this.require(file)]))
    }
 }
 
-export default new Loader()
+export default Loader
