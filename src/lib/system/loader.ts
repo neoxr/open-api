@@ -17,8 +17,8 @@ const scandir = async (dir: string): Promise<string[]> => {
 }
 
 class Loader {
-   plugins: { [key: string]: any } = []
-   scrapers: { [key: string]: any } = []
+   public plugins: { [key: string]: any } = []
+   public scrapers: { [key: string]: any } = []
 
    constructor() {
       this.plugins = []
@@ -33,7 +33,7 @@ class Loader {
       }
    }
 
-   start = async (dir: string): Promise<void> => {
+   router = async (dir: string): Promise<void> => {
       const files = await scandir(dir)
       this.plugins = Object.fromEntries(files.filter(v => v.endsWith('.js')).map(file => [path.basename(file).replace('.js', ''), require(file)]))
    }
@@ -44,4 +44,4 @@ class Loader {
    }
 }
 
-export default Loader
+export default new Loader

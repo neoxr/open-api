@@ -8,7 +8,8 @@
     "noEmit": false,
     "allowJs": false,
     "checkJs": false,
-    "outDir": "./lib",
+    "outDir": "./dist",
+    "rootDir": "./src",
     "strict": false,
     "strictNullChecks": true,
     "skipLibCheck": true,
@@ -23,8 +24,7 @@
     ]
   },
   "include": [
-    "./src/**/*.ts",
-    "./routers/**/*.ts"
+    "./src/**/*.ts"
   ],
   "exclude": [
     "node_modules"

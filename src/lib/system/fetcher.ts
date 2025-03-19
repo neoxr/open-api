@@ -17,4 +17,4 @@ class Fetcher {
    }
 }
 
-export default new Fetcher()
+export default new Fetcher
