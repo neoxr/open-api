@@ -17,6 +17,9 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": false,
+    "paths": {
+      "@/*": ["./UI/src/*"]
+    },
     "lib": [
       "es2020",
       "esnext.array",

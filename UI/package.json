@@ -1,0 +1,42 @@
+{
+  "name": "vprofile",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.0.14",
+    "axios": "^1.7.7",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "crypto-js": "^4.2.0",
+    "date-fns": "^4.1.0",
+    "jquery": "3.6.0",
+    "js-cookie": "^3.0.5",
+    "lucide-react": "^0.483.0",
+    "nprogress": "^0.2.0",
+    "path": "^0.12.7",
+    "socket.io-client": "^4.8.1",
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss": "^4.0.14",
+    "tw-animate-css": "^1.2.4",
+    "vite-plugin-css-injected-by-js": "^3.5.2",
+    "vite-plugin-html": "^3.2.2",
+    "vue": "^3.4.31",
+    "vue-loading-overlay": "^6.0.6",
+    "vue-router": "^4.4.0",
+    "vue3-carousel": "^0.14.0",
+    "vue3-google-login": "^2.0.33",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "cssnano": "^7.0.6",
+    "postcss-preset-env": "^10.1.5",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "serve": "latest",
+    "vite": "^5.3.4"
+  }
+}
