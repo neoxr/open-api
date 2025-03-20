@@ -1,3 +1,3 @@
-export { default as Loader } from './utils/loader'
-export { default as Fetcher } from './utils/fetcher'
-export { default as Function } from './utils/functions'
+export { default as Loader } from './Utils/loader'
+export { default as Fetcher } from './Utils/fetcher'
+export { default as Function } from './Utils/functions'

@@ -1,5 +1,5 @@
 import { Loader, Function as Func } from './lib'
-import { allowedIPs, collection } from './lib/utils/config'
+import { allowedIPs, collection } from './lib/Utils/config'
 import path from 'path'
 import jwt from 'jsonwebtoken'
 import requestIp from 'request-ip'
