@@ -23,42 +23,6 @@ for (const path in module) {
             title: 'Page Not Found',
          }
       })
-   } else if (routePath === '/tos') {
-      routes.push({
-         path: '/tos',
-         name,
-         component: module[path],
-         meta: {
-            title: 'Terms Of Service'
-         }
-      })
-   } else if (routePath === '/wrapper') {
-      routes.push({
-         path: '/wrapper',
-         name,
-         component: module[path],
-         meta: {
-            title: 'API Wrapper'
-         }
-      })
-   } else if (routePath === '/auth/forgot-password') {
-      routes.push({
-         path: '/auth/forgot-password',
-         name,
-         component: module[path],
-         meta: {
-            title: 'Forgot Password'
-         }
-      })
-   } else if (routePath === '/auth/reset') {
-      routes.push({
-         path: '/auth/reset',
-         name,
-         component: module[path],
-         meta: {
-            title: 'Reset Password'
-         }
-      })
    } else if (routePath === '/api') {
       routes.push({
          path: '/api',
@@ -159,68 +123,6 @@ for (const path in module) {
             auth: true,
             admin: true,
             title: 'Create Log'
-         }
-      })
-   } else if (routePath === '/panel/admin-tools') {
-      routes.push({
-         path: '/panel/admin-tools',
-         name,
-         component: module[path],
-         meta: {
-            auth: true,
-            admin: true,
-            title: 'Admin Tools'
-         }
-      })
-   } else if (routePath === '/panel/upgrade') {
-      routes.push({
-         path: '/panel/upgrade',
-         name,
-         component: module[path],
-         meta: {
-            auth: true,
-            admin: true,
-            title: 'Upgrade User'
-         }
-      })
-   } else if (routePath === '/panel/balance') {
-      routes.push({
-         path: '/panel/balance',
-         name,
-         component: module[path],
-         meta: {
-            auth: true,
-            admin: true,
-            title: 'Add Balance'
-         }
-      })
-   } else if (routePath === '/panel/setting') {
-      routes.push({
-         path: '/panel/setting',
-         name,
-         component: module[path],
-         meta: {
-            auth: true,
-            title: 'Setting'
-         }
-      })
-   } else if (routePath === '/panel/claim') {
-      routes.push({
-         path: '/panel/claim',
-         name,
-         component: module[path],
-         meta: {
-            auth: true,
-            title: 'Claim'
-         }
-      })
-   } else if (routePath.startsWith('/profile')) {
-      routes.push({
-         path: '/profile/:username',
-         name,
-         component: module[path],
-         meta: {
-            title: 'Profile'
          }
       })
    } else {
