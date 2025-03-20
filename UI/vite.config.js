@@ -3,7 +3,6 @@ import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import autoprefixer from 'autoprefixer'
 import tailwind from 'tailwindcss'
-import path from 'path'
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import visualizer from 'rollup-plugin-visualizer'
 import { createHtmlPlugin } from 'vite-plugin-html'
@@ -24,7 +23,7 @@ export default defineConfig({
       sourcemap: false
    },
    server: {
-      allowedHosts: '*',
+      allowedHosts: ['6rnertt7-ed793ivd-wp2mlt95qshk.acb2-preview.marscode.dev'],
       host: '0.0.0.0',
       port: 3000,
       hmr: true
