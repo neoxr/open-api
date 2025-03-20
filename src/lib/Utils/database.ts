@@ -19,7 +19,8 @@ class Sqlite {
             role TEXT DEFAULT 'user',
             premium INTEGER DEFAULT 0,
             expired_at INTEGER DEFAULT 0,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            deleted INTEGER DEFAULT 0
          )
       `
       this.db.prepare(createTableQuery).run()
@@ -61,6 +62,69 @@ class Sqlite {
             creator: global.creator,
             status: true,
             msg: 'Registration successful'
+         }
+      } catch (e: any) {
+         return {
+            creator: global.creator,
+            status: false,
+            msg: e.message
+         }
+      }
+   }
+
+   // Soft delete (mark user as deleted)
+   softDelete = (username: string, status: 1 | 0 = 1): Response => {
+      try {
+         const query = `UPDATE users SET deleted = ? WHERE username = ? AND deleted = 0`
+         const result = this.db.prepare(query).run(status, username)
+         if (result.changes === 0) throw new Error('User not found or already deleted')
+
+         return {
+            creator: global.creator,
+            status: true,
+            msg: 'User soft deleted successfully'
+         }
+      } catch (e: any) {
+         return {
+            creator: global.creator,
+            status: false,
+            msg: e.message
+         }
+      }
+   }
+
+   // Delete method (permanent removal)
+   delete = (username: string): Response => {
+      try {
+         const query = `DELETE FROM users WHERE username = ?`
+         const result = this.db.prepare(query).run(username)
+         if (result.changes === 0) throw new Error('User not found')
+
+         return {
+            creator: global.creator,
+            status: true,
+            msg: 'User deleted successfully'
+         }
+      } catch (e: any) {
+         return {
+            creator: global.creator,
+            status: false,
+            msg: e.message
+         }
+      }
+   }
+
+   // Update method (change user details)
+   update = (username: string, newPassword: string, newRole: Role): Response => {
+      try {
+         const query = `UPDATE users SET password = ?, role = ? WHERE username = ?`
+         const result = this.db.prepare(query).run(newPassword, newRole, username)
+         if (result.changes === 0) throw new Error('User not found')
+
+         return {
+            creator: global.creator,
+            status: true,
+            msg: 'User updated successfully'
          }
       } catch (e: any) {
          return {
