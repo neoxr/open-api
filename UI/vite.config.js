@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import path from "path"
-import tailwindcss from "@tailwindcss/vite"
+import path from 'path'
+import autoprefixer from 'autoprefixer'
+import tailwind from 'tailwindcss'
 import path from 'path'
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import visualizer from 'rollup-plugin-visualizer'
@@ -9,7 +10,7 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 
 export default defineConfig({
    plugins: [
-      vue(), tailwindcss(),
+      vue(),
       cssInjectedByJsPlugin(),
       visualizer({
          open: true
@@ -36,6 +37,7 @@ export default defineConfig({
    css: {
       postcss: {
          plugins: [
+            tailwind(), autoprefixer(),
             require('postcss-preset-env')({ stage: 0 }),
             require('cssnano')({
                preset: ['default', {
