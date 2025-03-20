@@ -9,7 +9,6 @@ const createRouter = async (): Promise<Router | undefined> => {
       await Loader.router(path.join(__dirname, 'routers'))
 
       const routers = Object.values(Object.fromEntries(Object.entries(Loader.plugins)))
-      console.log(routers)
       routers.some((v: any) => {
          const route = v.routes
          if (route.name) {
@@ -29,39 +28,33 @@ const createRouter = async (): Promise<Router | undefined> => {
          }
 
          // error
-         const error = (route.error
-            ? (req: Request, res: Response, next: NextFunction) => {
-               res.json({
-                  creator: global.creator,
-                  status: false,
-                  msg: `Sorry, this feature is currently error and will be fixed soon`
-               })
-            }
-            : (req: Request, res: Response, next: NextFunction) => {
-               next()
+         const error = (route.error ? (req: Request, res: Response, next: NextFunction) => {
+            res.json({
+               creator: global.creator,
+               status: false,
+               msg: `Sorry, this feature is currently error and will be fixed soon`
             })
+         } : (req: Request, res: Response, next: NextFunction) => {
+            next()
+         })
 
          // validator & requires
-         const requires = (!route.requires
-            ? (req: Request, res: Response, next: NextFunction) => {
-               const reqFn = route.method === 'get' ? 'reqGet' : 'reqPost'
-               const check = global.appStatus[reqFn](req, route.parameter)
-               if (!check.status) return res.json(check)
-               const reqType = route.method === 'get' ? 'query' : 'body'
-               if ('url' in req[reqType]) {
-                  const isUrl = global.appStatus.url(req[reqType].url)
-                  if (!isUrl.status) return res.json(isUrl)
-                  next()
-               } else next()
-            }
-            : route.requires)
+         const requires = (!route.requires ? (req: Request, res: Response, next: NextFunction) => {
+            const reqFn = route.method === 'get' ? 'reqGet' : 'reqPost'
+            const check = global.appStatus[reqFn](req, route.parameter)
+            if (!check.status) return res.json(check)
+            const reqType = route.method === 'get' ? 'query' : 'body'
+            if ('url' in req[reqType]) {
+               const isUrl = global.appStatus.url(req[reqType].url)
+               if (!isUrl.status) return res.json(isUrl)
+               next()
+            } else next()
+         } : route.requires)
 
          // custom validator
-         const validator = (route.validator
-            ? route.validator
-            : (req: Request, res: Response, next: NextFunction) => {
-               next()
-            })
+         const validator = (route.validator ? route.validator : (req: Request, res: Response, next: NextFunction) => {
+            next()
+         })
 
          // Add route handler to the router
          router[route.method](route.path, error, requires, validator, route.execution)
@@ -71,7 +64,7 @@ const createRouter = async (): Promise<Router | undefined> => {
 
       return router
    } catch (e) {
-      console.log(e)
+      console.error(e)
    }
 }
 

@@ -1,3 +1,5 @@
+import { Collection } from './types'
+
 declare global {
    var creator: string
    var appStatus: {
@@ -78,4 +80,4 @@ global.appStatus = {
    }
 }
 
-export const collection: any[] = []
+export const collection: Collection[] = []
