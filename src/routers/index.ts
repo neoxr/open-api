@@ -1,4 +1,4 @@
-import { Route } from '../lib'
+import { Route } from '../lib/system/types'
 
 export const routes: Route = {
    category: 'main',
