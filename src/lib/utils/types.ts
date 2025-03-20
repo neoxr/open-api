@@ -9,6 +9,10 @@ export interface Route {
 	method: 'get' | 'post'
 	execution: (req: Request, res: Response, next: NextFunction) => Promise<void>
 	error?: boolean
+	premium?: boolean
+	rpm?: boolean
+	restrict?: boolean
+	authorize?: boolean
 }
 
 export interface Collection {

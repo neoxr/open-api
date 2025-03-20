@@ -80,4 +80,5 @@ global.appStatus = {
    }
 }
 
+export const allowedIPs: any[] = []
 export const collection: Collection[] = []

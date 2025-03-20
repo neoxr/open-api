@@ -1,4 +1,4 @@
-import './lib/system/config.js'
+import './lib/utils/config.js'
 import 'dotenv/config'
 import express, { Request, Response } from 'express'
 import path from 'path'
