@@ -1,4 +1,5 @@
 import './lib/Utils/config.js'
+import { Database } from './lib/index.js'
 import 'dotenv/config'
 import express, { Request, Response } from 'express'
 import path from 'path'
@@ -10,6 +11,7 @@ import morgan from 'morgan'
 const PORT = process.env.PORT || 8080
 
 const runServer = async (): Promise<void> => {
+  global.db = new Database
   const app = express()
 
   morgan.token('clientIp', (req: Request) => req.clientIp)

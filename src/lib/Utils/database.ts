@@ -28,7 +28,7 @@ class Sqlite {
 
    account = (username: string): Response => {
       try {
-         const query = `SELECT username, "limit", role, premium, expired_at, created_at FROM users WHERE username = ?`
+         const query = `SELECT * FROM users WHERE username = ?`
          const data = this.db.prepare(query).get(username)
          if (!data) throw new Error('User not found')
          return {

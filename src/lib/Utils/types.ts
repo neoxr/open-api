@@ -26,6 +26,7 @@ export interface Route {
    name?: string
    category: string
    path: string
+   parameter?: string[]
    method: Method
    execution: (req: Request, res: Response, next: NextFunction) => Promise<void>
    error?: boolean
