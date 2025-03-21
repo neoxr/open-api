@@ -9,7 +9,7 @@ export default defineConfig({
     vue(),
   ],
   server: {
-    allowedHosts: ['6rnertt7-ed793ivd-wp2mlt95qshk.acb2-preview.marscode.dev'],
+    allowedHosts: ['2ddbg0cn-3ur9qsu3-0p0o6uo578hk.acb2-preview.marscode.dev'],
     host: '0.0.0.0',
     port: 3000,
     hmr: true

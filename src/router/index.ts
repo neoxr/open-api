@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import store from '../store'
-import { toUcwords, base64decode } from '../lib/utils'
+import { toUcwords, base64decode } from '../lib/functions'
 
 const module = import.meta.glob('../pages/**/*.vue')
 const routes = []

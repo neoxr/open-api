@@ -1,5 +1,5 @@
 import { act as ACT, api as API } from '../lib/instance'
-import { encrypt } from '../lib/utils'
+import { encrypt } from '../lib/functions'
 // import { ActionContext } from 'vuex'
 
 // type MyActionContext = ActionContext<State, any>
