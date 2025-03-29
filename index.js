@@ -11,6 +11,7 @@ import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 import CFonts from 'cfonts'
 import ejs from 'ejs'
+import timeout from 'connect-timeout'
 const PORT = process.env.PORT || 3000
 
 const __filename = fileURLToPath(import.meta.url)
@@ -21,21 +22,37 @@ const runServer = async () => {
    await Loader.scraper(path.join(process.cwd(), 'lib/scraper'))
    const app = express()
 
-   morgan.token('clientIp', (req) => req.clientIp)
-
    app.set('json spaces', 3)
       .set('view engine', 'ejs')
       .engine('ejs', ejs.__express)
+      .use(timeout('300s')) // 5 minutes
+      .use((req, res, next) => {
+         if (!req.timedout) next()
+      })
       .use(express.json())
       .use(requestIp.mw())
-      .use(morgan(':clientIp :method :url :status :res[content-length] - :response-time ms'))
+      .use(morgan((tokens, req, res) => {
+         if (req.method !== 'OPTIONS') {
+            return [
+               req.clientIp,
+               tokens.method(req, res),
+               tokens.url(req, res),
+               tokens.status(req, res),
+               tokens.res(req, res, 'content-length'), '-',
+               tokens['response-time'](req, res), 'ms'
+            ].join(' ')
+         }
+      }))
       .use(bodyParser.json({ limit: '50mb' }))
       .use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }))
-      .use(express.static(path.join(__dirname, 'public')));
+      .use('/public', express.static(path.join(__dirname, 'public'), {
+         maxAge: '1d',
+         etag: false
+      }))
 
    // Dynamically import the request handler module
-   const handler = await import('./handler.js')
-   app.use('/', await handler.default)
+   const { default: handler } = await import('./handler.js')
+   app.use('/', await handler)
 
    app.get('*', (req, res) => res.status(404).json({
       creator: global.creator,
@@ -45,7 +62,7 @@ const runServer = async () => {
 
    app.disable('x-powered-by')
    app.use((req, res, next) => {
-      res.setHeader('X-Powered-By', 'NXR-SERVER')
+      res.setHeader('X-Powered-By', 'Neoxr Creative Server')
       next()
    })
 

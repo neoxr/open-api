@@ -46,36 +46,39 @@ const createRouter = async () => {
          // Middleware to restrict access based on IP
          const restrict = route.restrict ? (req, res, next) => {
             const userIP = requestIp.getClientIp(req)
-            if (!allowedIPs.includes(userIP)) return res.status(403).json({
-               creator: global.creator,
-               status: false,
-               msg: 'Your IP is not allowed to access this page'
-            })
+            if (!allowedIPs.includes(userIP)) {
+               return res.status(403).json({
+                  creator: global.creator,
+                  status: false,
+                  msg: 'Your IP is not allowed to access this page'
+               })
+            }
             next()
-         } : (req, res, next) => {
-            next()
-         }
+         } : (req, res, next) => next()
 
          // Middleware to JWT authentication
          const authorize = (route.authorize ? (req, res, next) => {
             const authHeader = req.headers['authorization']
             const authToken = authHeader && authHeader.split(' ')[1].trim()
-            if (!authToken || authToken != req.session.token) return res.status(401).json({
-               creator: global.creator,
-               status: false,
-               msg: 'Unauthorized'
-            })
-            jwt.verify(authToken, process.env.JWT_SECRET, (err, user) => {
-               if (err) return res.status(403).json({
+            if (!authToken || authToken != req.session.token) {
+               return res.status(401).json({
                   creator: global.creator,
                   status: false,
-                  msg: 'Forbidden access'
+                  msg: 'Unauthorized'
                })
+            }
+
+            jwt.verify(authToken, process.env.JWT_SECRET, (err, user) => {
+               if (err) {
+                  return res.status(403).json({
+                     creator: global.creator,
+                     status: false,
+                     msg: 'Forbidden access'
+                  })
+               }
                next()
             })
-         } : (req, res, next) => {
-            next()
-         })
+         } : (req, res, next) => next())
 
          // Middleware to check request limit per IP
          const rpm = route.rpm ? (req, res, next) => {
@@ -99,20 +102,16 @@ const createRouter = async () => {
             ipRequests[userIP].push(currentTime)
 
             next()
-         } : (req, res, next) => {
-            next()
-         }
+         } : (req, res, next) => next()
 
          // Middleware to handle routes with error status
          const error = route.error ? (req, res, next) => {
-            res.json({
+            return res.json({
                creator: global.creator,
                status: false,
                msg: `Sorry, this feature is currently error and will be fixed soon`
             })
-         } : (req, res, next) => {
-            next()
-         }
+         } : (req, res, next) => next()
 
          // Middleware to validate route parameters
          const requires = !route.requires ? (req, res, next) => {
@@ -128,13 +127,13 @@ const createRouter = async () => {
          } : route.requires
 
          // Additional custom middleware (if provided)
-         const validator = route.validator ? route.validator : (req, res, next) => {
-            next()
-         }
+         const validator = route.validator ? route.validator : (req, res, next) => next()
 
          // Register the route on the router
-         router[route.method](route.path, restrict, authorize, rpm, error, requires, validator, route.execution)
-         if (router.stack.length === routers.length || (router.stack.length - 1) === routers.length) return
+         if (!router.stack.some(layer => layer.route && layer.route.path === route.path)) {
+            // Suggested code may be subject to a license. Learn more: ~LicenseLog:3148310086.
+            router[route.method](route.path, restrict, authorize, rpm, error, requires, validator, route.execution)
+         }
       })
 
       return router
