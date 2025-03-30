@@ -23,7 +23,7 @@ const createRouter = async () => {
       const routers = Object.values(Object.fromEntries(Object.entries(Loader.plugins)))
 
       // Iterate through each plugin to register routes
-      routers.some(v => {
+      for (const v of routers) {
          const route = v.routes
 
          // Add route information to the collection if it has a "name" property
@@ -130,11 +130,10 @@ const createRouter = async () => {
          const validator = route.validator ? route.validator : (req, res, next) => next()
 
          // Register the route on the router
-         if (!router.stack.some(layer => layer.route && layer.route.path === route.path)) {
-            // Suggested code may be subject to a license. Learn more: ~LicenseLog:3148310086.
+         if (!router.stack.some(layer => layer.route && layer.route.path === route.path && layer.route.methods[route.method])) {
             router[route.method](route.path, restrict, authorize, rpm, error, requires, validator, route.execution)
          }
-      })
+      }
 
       return router
    } catch (e) {
