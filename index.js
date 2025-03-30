@@ -12,6 +12,7 @@ import { dirname } from 'path'
 import CFonts from 'cfonts'
 import ejs from 'ejs'
 import timeout from 'connect-timeout'
+import { createRouter } from './handler.js'
 const PORT = process.env.PORT || 3000
 
 const __filename = fileURLToPath(import.meta.url)
@@ -45,14 +46,10 @@ const runServer = async () => {
       }))
       .use(bodyParser.json({ limit: '50mb' }))
       .use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }))
-      .use('/public', express.static(path.join(__dirname, 'public'), {
-         maxAge: '1d',
-         etag: false
-      }))
+      .use(express.static(path.join(__dirname, 'public')))
 
    // Dynamically import the request handler module
-   const { default: handler } = await import('./handler.js')
-   app.use('/', await handler)
+   app.use('/', await createRouter())
 
    app.get('*', (req, res) => res.status(404).json({
       creator: global.creator,
@@ -82,4 +79,7 @@ const runServer = async () => {
    })
 }
 
-runServer().catch(() => runServer())
+runServer().catch(() => {
+   console.log(chalk.redBright.bold('Server error, trying to connect ...'))
+   runServer()
+})
