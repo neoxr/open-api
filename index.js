@@ -30,6 +30,7 @@ const runServer = async () => {
       .use((req, res, next) => {
          if (!req.timedout) next()
       })
+      .use(global.status.caching)
       .use(express.json())
       .use(requestIp.mw())
       .use(morgan((tokens, req, res) => {

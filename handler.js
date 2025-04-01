@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url'
 const router = express.Router()
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
-const requestLimit = 60 // Max 60 requests per minute
+const requestLimit = process.env.REQUEST_LIMIT
 const ipRequests = new Map()
 
 const createRouter = async () => {
