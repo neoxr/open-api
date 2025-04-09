@@ -109,9 +109,7 @@ const createRouter = async () => {
 
          const validator = route.validator || ((req, res, next) => next())
 
-         if (!router.stack.some(layer => layer.route && layer.route.path === route.path && Object.keys(layer.route.methods).includes(route.method))) {
-            router[route.method](route.path, restrict, authorize, rpm, error, requires, validator, route.execution)
-         }
+         router[route.method](route.path, restrict, authorize, rpm, error, requires, validator, route.execution)
       }
 
       return router
