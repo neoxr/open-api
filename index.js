@@ -12,7 +12,7 @@ import { dirname } from 'path'
 import CFonts from 'cfonts'
 import ejs from 'ejs'
 import timeout from 'connect-timeout'
-import { createRouter } from './handler.js'
+import createRouter from './lib/system/defineRoute.js'
 const PORT = process.env.PORT || 3000
 
 const __filename = fileURLToPath(import.meta.url)
@@ -30,7 +30,6 @@ const runServer = async () => {
       .use((req, res, next) => {
          if (!req.timedout) next()
       })
-      // .use(global.status.caching)
       .use(express.json())
       .use(requestIp.mw())
       .use(morgan((tokens, req, res) => {
@@ -50,7 +49,7 @@ const runServer = async () => {
       .use(express.static(path.join(__dirname, 'public')))
 
    // Dynamically import the request handler module
-   app.use('/', await createRouter())
+   await (new createRouter(app)).load(path.join(process.cwd(), 'routers'))
 
    app.get('*', (req, res) => res.status(404).json({
       creator: global.creator,
