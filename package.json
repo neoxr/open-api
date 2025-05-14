@@ -17,7 +17,7 @@
    },
    "dependencies": {
       "axios": "^1.9.0",
-      "body-parser": "^1.20.2",
+      "body-parser": "^2.2.0",
       "cfonts": "3.1.1",
       "chalk": "4.1.0",
       "cheerio": "^1.0.0-rc.12",
