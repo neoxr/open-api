@@ -132,13 +132,13 @@ call-bound@^1.0.2:
     call-bind-apply-helpers "^1.0.1"
     get-intrinsic "^1.2.6"
 
-cfonts@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/cfonts/-/cfonts-3.1.1.tgz#81bf9cfce2fcee581046d8912a55bab4366f9cfc"
-  integrity sha512-PFknL/y+QVzoVmnm4X/PLd+t5Bt4aSvFBebpvyjcVUb81jHIVHFKvAopADbTk9tnfLLC2RHFZgdVa9YAwQp1mw==
+cfonts@3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/cfonts/-/cfonts-3.3.0.tgz#53e80fa239c2dc8fb11b9c7c00ede2c8ceedb34c"
+  integrity sha512-RlVxeEw2FXWI5Bs9LD0/Ef3bsQIc9m6lK/DINN20HIW0Y0YHUO2jjy88cot9YKZITiRTCdWzTfLmTyx47HeSLA==
   dependencies:
     supports-color "^8"
-    window-size "^1.1.1"
+    window-size "^1"
 
 chalk@4.1.0:
   version "4.1.0"
@@ -1172,7 +1172,7 @@ whatwg-mimetype@^4.0.0:
   resolved "https://registry.yarnpkg.com/whatwg-mimetype/-/whatwg-mimetype-4.0.0.tgz#bc1bf94a985dc50388d54a9258ac405c3ca2fc0a"
   integrity sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==
 
-window-size@^1.1.1:
+window-size@^1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-1.1.1.tgz#9858586580ada78ab26ecd6978a6e03115c1af20"
   integrity sha512-5D/9vujkmVQ7pSmc0SCBmHXbkv6eaHwXEx65MywhmUMsI8sGqJ972APq1lotfcwMKPFLuCFfL8xGHLIp7jaBmA==
