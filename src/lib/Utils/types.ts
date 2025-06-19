@@ -29,7 +29,8 @@ export interface Route {
    parameter?: string[]
    method: Method
    execution: (req: Request, res: Response, next: NextFunction) => Promise<void>
-   error?: boolean
+   error?: boolean | undefined
+   example?: any
    premium?: boolean
    rpm?: boolean
    restrict?: boolean
@@ -46,6 +47,6 @@ export interface Collection {
       path?: string,
       example?: string | null
    }
-   error: boolean
+   error: boolean | undefined
    premium?: boolean
 }
