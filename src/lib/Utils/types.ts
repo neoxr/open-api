@@ -22,6 +22,18 @@ export interface Response {
 
 export type Method = 'get' | 'post'
 
+export interface Minddleware {
+   restrict?: boolean
+   authorize?: boolean
+   rpm?: boolean
+   error?: boolean
+   requires?: ((req: Request, res: Response, next: NextFunction) => void) | false
+   validator?: (req: Request, res: Response, next: NextFunction) => void
+   method: Method
+   parameter?: string[]
+   [key: string]: any
+}
+
 export interface Route {
    name?: string
    category: string

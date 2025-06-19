@@ -1,24 +1,12 @@
 import { allowedIPs } from './config'
 import requestIp from 'request-ip'
 import { Request, Response, NextFunction } from 'express'
-import { Method } from './types'
+import { Method, Minddleware } from './types'
 
 const requestLimit = Number(process.env.REQUEST_LIMIT || 100)
 const ipRequests: Record<string, number[]> = {}
 
-interface RouteConfig {
-   restrict?: boolean
-   authorize?: boolean
-   rpm?: boolean
-   error?: boolean
-   requires?: ((req: Request, res: Response, next: NextFunction) => void) | false
-   validator?: (req: Request, res: Response, next: NextFunction) => void
-   method: Method
-   parameter?: string[]
-   [key: string]: any
-}
-
-export default (route: RouteConfig) => {
+export default (route: Minddleware) => {
    const middlewares: Array<(req: Request, res: Response, next: NextFunction) => void> = []
 
    // Restrict IP
