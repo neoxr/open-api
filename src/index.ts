@@ -1,5 +1,5 @@
-import './lib/Utils/config.js'
-import { Database } from './lib/index.js'
+import './lib/Utils/config'
+import { Database } from './lib'
 import 'dotenv/config'
 import express, { Request, Response, NextFunction } from 'express'
 import path from 'path'
