@@ -19,8 +19,6 @@ const runServer = async (): Promise<void> => {
    morgan.token('clientIp', (req: Request) => req.clientIp)
 
    app.set('json spaces', 3)
-      .set('view engine', 'ejs')
-      .engine('ejs', require('ejs').__express)
       .use(express.json())
       .use(ip.mw())
       .use(morgan(':clientIp :method :url :status :res[content-length] - :response-time ms'))

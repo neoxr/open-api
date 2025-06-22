@@ -7,9 +7,7 @@
       "npm": ">= 9.x"
    },
    "scripts": {
-      "prepare": "tsc",
-      "dev": "npx ts-node ./src/index.ts",
-      "start": "node ./dist/index.js"
+      "build": "tsc"
    },
    "license": "MIT",
    "author": {
@@ -25,9 +23,7 @@
       "chalk": "4.1.0",
       "cheerio": "^1.0.0-rc.12",
       "dotenv": "^16.4.5",
-      "ejs": "^3.1.10",
       "express": "^4.19.2",
-      "got": "^14.4.5",
       "jsonwebtoken": "^9.0.2",
       "md5": "^2.3.0",
       "mime-types": "^2.1.35",
@@ -39,7 +35,6 @@
    "devDependencies": {
       "@types/node": "^24.0.3",
       "ts-node": "^10.9.2",
-      "tsconfig-paths": "^4.2.0",
       "typescript": "^5.8.2"
    }
 }
