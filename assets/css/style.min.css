@@ -5993,6 +5993,7 @@ fieldset:disabled .btn {
 }
 
 .breadcrumb-item+.breadcrumb-item::before {
+    font-family: boxicons !important;
     float: left;
     padding-right: var(--bs-breadcrumb-item-padding-x);
     color: var(--bs-breadcrumb-divider-color);
@@ -16720,8 +16721,8 @@ html[data-bs-theme=dark] #light-dark-mode .bx-moon::before {
 }
 
 .app-menu .menu-item .menu-link>.menu-arrow:before {
-    content: "\f0142";
-    font-family: "Material Design Icons"
+    content: "\ea50";
+    font-family: boxicons !important;
 }
 
 .app-menu .menu-item .menu-link[aria-expanded=true]>.menu-arrow {
@@ -16751,7 +16752,8 @@ html[data-bs-theme=dark] #light-dark-mode .bx-moon::before {
 }
 
 html[dir=rtl] .menu-arrow::before {
-    content: "\f0141" !important
+    font-family: boxicons !important;
+    content: "\ea50" !important
 }
 
 html.sidebar-enable:not([data-sidebar-size=full]) .main-menu {
@@ -21686,5 +21688,3 @@ span.flatpickr-weekday {
 .waves-block {
     display: block
 }
-
-/*# sourceMappingURL=style.min.css.map */
