@@ -1,0 +1,13 @@
+{
+  "name": "lunoz",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite"
+  },
+  "main": "index.js",
+  "author": "Wildan Izzudin <admin@neoxr.my.id>",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^6.3.5"
+  }
+}
