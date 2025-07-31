@@ -1,10 +1,10 @@
-import key from '../../middlewares/key.js'
+import secret from '../../middlewares/only/secret.js'
 
 export const routes = {
    category: 'main',
    path: '/api/test',
    method: 'get',
-   middleware: [key],
+   middleware: [secret],
    execution: async (req, res, next) => {
       res.send('Access Granted!')
    },

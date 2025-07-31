@@ -75,7 +75,7 @@ const runServer = async () => {
          font: 'console',
          align: 'center'
       })
-      console.log(chalk.yellowBright.bold('Server listening on PORT --->', PORT))
+      console.log(chalk.yellowBright.bold('Server listening on PORT --->', `http://localhost:${PORT}`))
    })
 }
 

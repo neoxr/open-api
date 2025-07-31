@@ -12,5 +12,6 @@ export const routes = {
       res.json(json)
    },
    error: false,
-   rpm: true
+   rpm: true,
+   premium: true
 }
