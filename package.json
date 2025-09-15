@@ -16,7 +16,7 @@
       "url": "https://api.neoxr.eu/"
    },
    "dependencies": {
-      "axios": "^1.10.0",
+      "axios": "^1.12.2",
       "body-parser": "^2.2.0",
       "cfonts": "3.3.0",
       "chalk": "4.1.0",
