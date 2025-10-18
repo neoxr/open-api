@@ -135,10 +135,10 @@ call-bound@^1.0.2:
     call-bind-apply-helpers "^1.0.1"
     get-intrinsic "^1.2.6"
 
-cfonts@3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/cfonts/-/cfonts-3.3.0.tgz#53e80fa239c2dc8fb11b9c7c00ede2c8ceedb34c"
-  integrity sha512-RlVxeEw2FXWI5Bs9LD0/Ef3bsQIc9m6lK/DINN20HIW0Y0YHUO2jjy88cot9YKZITiRTCdWzTfLmTyx47HeSLA==
+cfonts@3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/cfonts/-/cfonts-3.3.1.tgz#38c149f0c292bb0cebcec637f8e50983e4785814"
+  integrity sha512-ZGEmN3W9mViWEDjsuPo4nK4h39sfh6YtoneFYp9WLPI/rw8BaSSrfQC6jkrGW3JMvV3ZnExJB/AEqXc/nHYxkw==
   dependencies:
     supports-color "^8"
     window-size "^1"
