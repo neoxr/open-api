@@ -19,7 +19,7 @@ jobs:
         uses: lewagon/wait-on-check-action@v1.3.1
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-          check-regexp: "CI"
+          check-regexp: "CodeQL"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 30
 
