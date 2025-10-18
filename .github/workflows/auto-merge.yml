@@ -1,0 +1,36 @@
+name: Auto Approve and Merge (neoxr to master)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches:
+      - master
+
+jobs:
+  auto-approve-and-merge:
+    runs-on: ubuntu-latest
+
+    if: >
+      github.event.pull_request.user.login == 'neoxr' &&
+      github.event.pull_request.base.ref == 'master'
+
+    steps:
+      - name: Wait for CI checks to pass
+        uses: lewagon/wait-on-check-action@v1.3.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          check-regexp: "CI"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 30
+
+      - name: Approve PR (as neoxrbot)
+        uses: hmarr/auto-approve-action@v3
+        with:
+          github-token: ${{ secrets.PERSONAL_TOKEN }}
+
+      - name: Merge PR (as neoxrbot)
+        uses: pascalgn/automerge-action@v0.16.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+          MERGE_METHOD: squash
+          MERGE_DELETE_BRANCH: true
