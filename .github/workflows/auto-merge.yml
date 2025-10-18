@@ -24,14 +24,16 @@ jobs:
           wait-interval: 30
 
 
-      - name: Approve PR (as neoxrbot)
+      - name: Approve PR
         uses: hmarr/auto-approve-action@v3
         with:
           github-token: ${{ secrets.PERSONAL_TOKEN }}
 
-      - name: Merge PR (as neoxrbot)
-        uses: pascalgn/automerge-action@v0.16.3
+      - name: Merge PR directly to master
+        uses: devmasx/merge-branch@v1.4.0
+        with:
+          type: "squash"
+          from_branch: ${{ github.event.pull_request.head.ref }}
+          target_branch: master
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
-          MERGE_METHOD: squash
-          MERGE_DELETE_BRANCH: true
