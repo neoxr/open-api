@@ -1,4 +1,4 @@
-name: Auto Approve and Merge (neoxr to master)
+name: Auto Approve and Merge
 
 on:
   pull_request:
@@ -15,22 +15,31 @@ jobs:
       github.event.pull_request.base.ref == 'master'
 
     steps:
-      - name: Wait for CI checks to pass
-        uses: lewagon/wait-on-check-action@v1.3.1
+      - name: Wait for CodeQL check to pass
+        uses: lewagon/wait-on-check-action@v1.4.0
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-          check-regexp: "CodeQL"
+          check-regexp: "Analyze \\(javascript-typescript\\)(?: \\(dynamic\\))?"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 30
 
-      - name: Approve PR (as neoxrbot)
+      - name: Approve PR
         uses: hmarr/auto-approve-action@v3
         with:
           github-token: ${{ secrets.PERSONAL_TOKEN }}
 
-      - name: Merge PR (as neoxrbot)
-        uses: pascalgn/automerge-action@v0.16.3
+      - name: Merge PR directly to master
+        uses: devmasx/merge-branch@v1.4.0
+        with:
+          type: now
+          from_branch: ${{ github.event.pull_request.head.ref }}
+          target_branch: master
+          merge_method: squash
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
-          MERGE_METHOD: squash
-          MERGE_DELETE_BRANCH: true
+
+      - name: Delete branch after merge
+        run: |
+          git push origin --delete ${{ github.event.pull_request.head.ref }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
