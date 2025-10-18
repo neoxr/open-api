@@ -35,6 +35,7 @@ jobs:
           from_branch: ${{ github.event.pull_request.head.ref }}
           target_branch: master
           merge_method: squash
+          commit_message: "Auto-merge: ${{ github.event.pull_request.title }}"
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
 
