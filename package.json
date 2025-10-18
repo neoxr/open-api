@@ -21,7 +21,7 @@
       "cfonts": "3.3.0",
       "chalk": "4.1.0",
       "cheerio": "^1.0.0-rc.12",
-      "connect-timeout": "^1.9.0",
+      "connect-timeout": "^1.9.1",
       "dotenv": "^17.2.3",
       "ejs": "^3.1.10",
       "express": "~4.16.4",
