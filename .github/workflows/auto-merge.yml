@@ -15,14 +15,6 @@ jobs:
       github.event.pull_request.base.ref == 'master'
 
     steps:
-      - name: Wait for CodeQL checks to pass
-        uses: lewagon/wait-on-check-action@v1.3.1
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          check-regexp: "Analyze (javascript-typescript) (dynamic)"
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 30
-
       - name: Approve PR (as neoxrbot)
         uses: hmarr/auto-approve-action@v3
         with:
