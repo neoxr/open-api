@@ -1,4 +1,4 @@
-name: Auto Approve and Merge (neoxr to master)
+name: Auto Approve and Merge
 
 on:
   pull_request:
@@ -22,7 +22,6 @@ jobs:
           check-regexp: "Analyze \\(javascript-typescript\\)(?: \\(dynamic\\))?"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 30
-
 
       - name: Approve PR
         uses: hmarr/auto-approve-action@v3
