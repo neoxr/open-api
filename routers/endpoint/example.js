@@ -1,4 +1,4 @@
-import { Loader } from '../../lib/index.js'
+import { Loader } from '@neoxr/webly'
 const Scraper = Loader.scrapers
 
 export const routes = {
