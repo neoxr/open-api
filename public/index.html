@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Responsive System Memory</title>
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+   <style>
+      html {
+         box-sizing: border-box;
+      }
+
+      *,
+      *:before,
+      *:after {
+         box-sizing: inherit;
+      }
+
+      body {
+         font-family: 'Share Tech Mono', monospace;
+         background-color: #121212;
+         color: #e0e0e0;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         min-height: 100vh;
+         margin: 0;
+         padding: 1rem;
+         -webkit-font-smoothing: antialiased;
+         -moz-osx-font-smoothing: grayscale;
+      }
+
+      .monitor {
+         background-color: #1e1e1e;
+         padding: 2rem 3rem;
+         border-radius: 12px;
+         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+         border-top: 1px solid #03a9f4;
+         border-left: 1px solid #03a9f4;
+         width: 100%;
+         max-width: 500px;
+      }
+
+      h1 {
+         text-align: center;
+         color: #03a9f4;
+         margin-top: 0;
+         margin-bottom: 2rem;
+         font-weight: 500;
+         letter-spacing: 2px;
+         font-size: 1.8rem;
+      }
+
+      .metric {
+         display: flex;
+         justify-content: space-between;
+         padding: 0.8rem 0;
+         font-size: 1.1rem;
+      }
+
+      .metric-label {
+         color: #aaa;
+      }
+
+      .metric-value {
+         font-weight: bold;
+         color: #f5f5f5;
+      }
+
+      .progress-container {
+         background-color: #333;
+         border-radius: 5px;
+         margin: 1.5rem 0;
+         height: 20px;
+         overflow: hidden;
+         border: 1px solid #444;
+      }
+
+      .progress-bar {
+         background-color: #4caf50;
+         height: 100%;
+         width: 0%;
+         text-align: center;
+         line-height: 20px;
+         color: white;
+         font-weight: bold;
+         transition: width 0.5s ease-in-out, background-color 0.5s;
+      }
+
+      #connection-status {
+         text-align: center;
+         margin-top: 1.5rem;
+         font-style: italic;
+         font-size: 0.9rem;
+         color: #ffc107;
+      }
+
+      @media (max-width: 600px) {
+         body {
+            align-items: flex-start;
+         }
+
+         .monitor {
+            padding: 1.5rem 1.2rem;
+         }
+
+         h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+         }
+
+         .metric {
+            font-size: 1rem;
+         }
+      }
+   </style>
+</head>
+
+<body>
+
+   <div class="monitor">
+      <h1>System Memory Monitor</h1>
+
+      <div class="progress-container">
+         <div id="usage-bar" class="progress-bar">0%</div>
+      </div>
+
+      <div class="metric">
+         <span class="metric-label">Total Memory:</span>
+         <span id="total-mem" class="metric-value">...</span>
+      </div>
+      <div class="metric">
+         <span class="metric-label">Used Memory:</span>
+         <span id="used-mem" class="metric-value">...</span>
+      </div>
+      <div class="metric">
+         <span class="metric-label">Free Memory:</span>
+         <span id="free-mem" class="metric-value">...</span>
+      </div>
+
+      <p id="connection-status">Connecting...</p>
+   </div>
+
+   <script src="/socket.io/socket.io.js"></script>
+   <script>
+      const socket = io();
+      const statusEl = document.getElementById('connection-status');
+      const totalMemEl = document.getElementById('total-mem');
+      const usedMemEl = document.getElementById('used-mem');
+      const freeMemEl = document.getElementById('free-mem');
+      const usageBarEl = document.getElementById('usage-bar');
+
+      socket.on('connect', () => {
+         statusEl.textContent = 'Connected';
+         statusEl.style.color = '#4caf50';
+      });
+      socket.on('disconnect', () => {
+         statusEl.textContent = 'Disconnected';
+         statusEl.style.color = '#f44336';
+      });
+      socket.on('system_update', (data) => {
+         totalMemEl.textContent = data.total;
+         usedMemEl.textContent = data.used;
+         freeMemEl.textContent = data.free;
+         const percentage = parseFloat(data.usagePercentage);
+         usageBarEl.style.width = percentage + '%';
+         usageBarEl.textContent = percentage.toFixed(1) + '%';
+         if (percentage > 90) {
+            usageBarEl.style.backgroundColor = '#f44336';
+         } else if (percentage > 70) {
+            usageBarEl.style.backgroundColor = '#ffc107';
+         } else {
+            usageBarEl.style.backgroundColor = '#4caf50';
+         }
+      });
+   </script>
+</body>
+
+</html>

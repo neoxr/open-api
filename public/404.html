@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Not Found</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        html {
+            box-sizing: border-box;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace; 
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1.5rem;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 600px;
+        }
+
+        .status-code {
+            font-size: 8rem; /* Ukuran dasar untuk mobile */
+            font-weight: bold;
+            color: #03a9f4;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(3, 169, 244, 0.5), 0 0 20px rgba(3, 169, 244, 0.3);
+        }
+
+        .message {
+            font-size: 1.5rem; /* Ukuran dasar */
+            color: #f5f5f5;
+            margin: 0 0 1.5rem 0;
+        }
+
+        .explanation {
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+        }
+
+        .home-link {
+            display: inline-block;
+            text-decoration: none;
+            color: #121212;
+            background-color: #03a9f4;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .home-link:hover {
+            background-color: #4fc3f7;
+            transform: translateY(-2px);
+        }
+
+        /* Media Query untuk layar yang lebih besar */
+        @media (min-width: 600px) {
+            .status-code {
+                font-size: 12rem; /* Perbesar di layar desktop */
+            }
+            .message {
+                font-size: 2rem; /* Perbesar juga pesannya */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="status-code">404</h1>
+        <p class="message">PAGE NOT FOUND</p>
+        <p class="explanation">
+            We're sorry, the page you requested could not be found. Please check the URL or navigate back to the homepage.
+        </p>
+        <a href="/" class="home-link">GO TO HOMEPAGE</a>
+    </div>
+</body>
+</html>
