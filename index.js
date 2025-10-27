@@ -1,4 +1,5 @@
 import Webly, { App, Loader } from '@neoxr/webly'
+import './lib/global.js'
 import middleware from './lib/system/middleware.js'
 import os from 'node:os'
 await Loader.scraper('./lib/scraper')
@@ -15,7 +16,7 @@ const app = new App({
    }
 })
 
-app?.socket?.on('connection', (socket) => {
+app.socket?.on('connection', (socket) => {
    console.log(`Client connected: ${socket.id}`);
 
    const systemMonitorInterval = setInterval(() => {
