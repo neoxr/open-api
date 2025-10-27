@@ -16,7 +16,7 @@
       "url": "https://api.neoxr.eu/"
    },
    "dependencies": {
-      "@neoxr/webly": "^0.0.2",
+      "@neoxr/webly": "^0.0.6",
       "cheerio": "^1.0.0-rc.12"
    }
 }
