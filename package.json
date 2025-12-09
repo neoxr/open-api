@@ -16,6 +16,6 @@
       "url": "https://api.neoxr.eu/"
    },
    "dependencies": {
-      "@neoxr/webly": "^0.0.7"
+      "@neoxr/webly": "^0.0.9"
    }
 }

@@ -10,7 +10,15 @@ const app = new App({
    routePath: './routers',
    middleware,
    socket: true,
-   port: 3001,
+   socketOpts: {
+      transports: ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+      pingInterval: 25000,
+      pingTimeout: 5000
+   },
+   port: 3000,
    error: (req, res) => {
       res.status(404).sendFile('./public/404.html', { root: process.cwd() })
    }
