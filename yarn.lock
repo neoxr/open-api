@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@neoxr/webly@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@neoxr/webly/-/webly-0.0.7.tgz#39fce4133ecfb1b5dc551a918ca546ed9d8c805b"
-  integrity sha512-Xvx4m1bT4FbudOQQ8pRceSQ68CBVFkcIqUPlHNfqLEnnCnLf+qnGwEju+0NoXSx27LWqfDX3WR69FvGJ4bv2Jw==
+"@neoxr/webly@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@neoxr/webly/-/webly-0.0.9.tgz#a94e43a36454109a9b4d181c04e216316555e1e7"
+  integrity sha512-S8roO/9jA05gbXzuM2XGwKk6CLMoPMOVHNUnnu8qXP2Fw90qyl18ant0pT6CuqdhvGffoTXI0v44NtI6oiWP8Q==
   dependencies:
     axios "^1.12.2"
     body-parser "^2.2.0"
