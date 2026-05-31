@@ -2,7 +2,7 @@ import { App, Loader } from '@neoxr/webly'
 import '../lib/global.js'
 import middleware from '../lib/system/middleware.js'
 import os from 'node:os'
-await Loader.scraper('../lib/scraper')
+await Loader.scraper('../lib/scraper', true)
 
 const app = new App({
    name: 'Open-API',
