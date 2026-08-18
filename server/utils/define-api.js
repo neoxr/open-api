@@ -23,7 +23,7 @@ export function defineApi(options) {
 
       const params = { ...query, ...body }
 
-      if (properties.protect) {
+      if (properties.premium) {
          const apiKeyHeader = getHeader(event, 'x-apikey')
          const userApiKey = params.apikey || apiKeyHeader
 
