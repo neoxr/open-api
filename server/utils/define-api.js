@@ -13,10 +13,19 @@ export function defineApi(options) {
             msg: 'This endpoint is currently under maintenance.'
          }, 503)
 
-      if (properties.premium) {
-         const query = getQuery(event)
+      const method = getMethod(event)
+      const query = getQuery(event) || {}
+
+      let body = {}
+      if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
+         body = (await readBody(event).catch(() => ({}))) || {}
+      }
+
+      const params = { ...query, ...body }
+
+      if (properties.protect) {
          const apiKeyHeader = getHeader(event, 'x-apikey')
-         const userApiKey = query.apikey || apiKeyHeader
+         const userApiKey = params.apikey || apiKeyHeader
 
          const env = getCloudflareEnv(event) || {}
          const validApiKey = env.API_KEY || process.env.API_KEY || ''
@@ -30,20 +39,20 @@ export function defineApi(options) {
       }
 
       if (properties.parameter && Array.isArray(properties.parameter) && properties.parameter.length > 0) {
-         const query = getQuery(event)
          const missingParams = []
 
          for (const param of properties.parameter) {
-            if (!query[param] || String(query[param]).trim() === '') {
+            const val = params[param]
+            if (val === undefined || val === null || String(val).trim() === '') {
                missingParams.push(param)
             }
          }
 
-         if (!missingParams.length)
+         if (missingParams.length > 0)
             return jsonResponse(event, {
                creator: appConfig.watermark.creator,
                status: false,
-               msg: `Missing required query parameter(s): ${missingParams.join(', ')}`
+               msg: `Missing required parameter(s): ${missingParams.join(', ')}`
             }, 400)
       }
 
